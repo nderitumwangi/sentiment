@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Transsion Kenya Market Sentiment Monitoring Report – 31 March 2026</title>
+<style>
+    :root {
+      --primary: #007A3D;
+      --primary-dark: #005A2B;
+      --accent: #F4A261;
+      --accent2: #D4241E;
+      --bg: #F8F9FA;
+      --card: #FFFFFF;
+      --border: #E5E7EB;
+      --text: #1F2937;
+      --text-light: #6B7280;
+      --positive: #16A34A;
+      --negative: #DC2626;
+      --neutral: #D97706;
+      --shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ========== HEADER ========== */
+    .report-header {
+      background: linear-gradient(135deg, #007A3D 0%, #005A2B 60%, #003A1A 100%);
+      color: white;
+      padding: 40px 48px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .report-header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .report-header::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 200px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .brand-tags { display: flex; gap: 10px; }
+    .brand-tag {
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .report-meta { font-size: 12px; opacity: 0.75; text-align: right; }
+    .report-meta div { margin-bottom: 2px; }
+    .report-title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .report-subtitle {
+      font-size: 15px;
+      opacity: 0.85;
+      margin-bottom: 20px;
+    }
+    .header-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      margin: 20px 0;
+    }
+    .product-info { display: flex; gap: 32px; flex-wrap: wrap; }
+    .product-info-item label {
+      font-size: 11px;
+      opacity: 0.7;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .product-info-item span { font-size: 15px; font-weight: 600; }
+
+    /* ========== NAV ========== */
+    .nav-tabs {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 0 48px;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .nav-tab {
+      padding: 14px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-light);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .nav-tab.active, .nav-tab:hover {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* ========== MAIN CONTENT ========== */
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 48px;
+    }
+
+    /* ========== SECTION ========== */
+    .section { margin-bottom: 40px; }
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title .icon {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+    .section-num { font-size: 11px; color: var(--text-light); font-weight: 400; }
+
+    /* ========== KPI CARDS ========== */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .kpi-card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .kpi-card.green::after { background: var(--primary); }
+    .kpi-card.gold::after { background: #FBBF24; }
+    .kpi-card.orange::after { background: var(--neutral); }
+    .kpi-card.red::after { background: var(--negative); }
+    .kpi-card.teal::after { background: #0891B2; }
+    .kpi-label {
+      font-size: 11px;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 10px;
+    }
+    .kpi-value {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .kpi-change {
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .kpi-change.up { color: var(--positive); }
+    .kpi-change.down { color: var(--negative); }
+    .kpi-change.neutral { color: var(--neutral); }
+    .kpi-sub { font-size: 11px; color: var(--text-light); margin-top: 4px; }
+
+    /* ========== CARDS ========== */
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .card-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-title { font-size: 14px; font-weight: 600; }
+    .card-tag {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+    .tag-update { background: #FEF3C7; color: #92400E; }
+    .tag-live { background: #DCFCE7; color: #166534; }
+    .tag-weekly { background: #EDE9FE; color: #5B21B6; }
+    .card-body { padding: 20px; }
+
+    /* ========== GRIDS ========== */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+    /* ========== SENTIMENT ========== */
+    .sentiment-overview {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .sentiment-donut {
+      width: 120px; height: 120px;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .sentiment-donut svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .sentiment-donut .center-label {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--positive);
+    }
+    .sentiment-donut .center-sub {
+      font-size: 10px;
+      color: var(--text-light);
+      font-weight: 400;
+    }
+    .sentiment-bars { flex: 1; }
+    .sent-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .sent-label { width: 40px; font-size: 12px; color: var(--text-light); }
+    .sent-bar-bg {
+      flex: 1; height: 8px;
+      background: #F3F4F6;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .sent-bar-fill { height: 100%; border-radius: 4px; }
+    .sent-pct { width: 36px; font-size: 12px; font-weight: 600; text-align: right; }
+
+    /* ========== CHANNEL TABLE ========== */
+    .channel-table { width: 100%; border-collapse: collapse; }
+    .channel-table th {
+      background: #F9FAFB;
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 11px;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border);
+    }
+    .channel-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      vertical-align: middle;
+    }
+    .channel-table tr:last-child td { border-bottom: none; }
+    .channel-table tr:hover td { background: #FAFAFA; }
+    .channel-icon {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    .ch-jumia { background: #FFF7ED; }
+    .ch-phoneplace { background: #EFF6FF; }
+    .ch-twitter { background: #EFF6FF; }
+    .ch-youtube { background: #FEF2F2; }
+    .ch-tiktok { background: #F0FDF4; }
+    .ch-facebook { background: #EFF6FF; }
+    .ch-gsmarena { background: #F0FDF4; }
+    .vol-bar { display: flex; align-items: center; gap: 8px; }
+    .vol-mini-bar {
+      width: 80px; height: 6px;
+      background: #F3F4F6;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .vol-mini-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 3px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-pos { background: #DCFCE7; color: #15803D; }
+    .badge-neg { background: #FEE2E2; color: #B91C1C; }
+    .badge-neu { background: #FEF3C7; color: #B45309; }
+    .badge-high { background: #EDE9FE; color: #6D28D9; }
+
+    /* ========== HOT TOPICS ========== */
+    .topic-list { display: flex; flex-direction: column; gap: 12px; }
+    .topic-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: box-shadow 0.2s;
+    }
+    .topic-item:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    .topic-rank {
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .rank-1 { background: #FEF3C7; color: #B45309; }
+    .rank-2 { background: #F3F4F6; color: #374151; }
+    .rank-3 { background: #FEF9EE; color: #92400E; }
+    .rank-n { background: #F3F4F6; color: #6B7280; }
+    .topic-content { flex: 1; }
+    .topic-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+    .topic-desc { font-size: 12px; color: var(--text-light); }
+    .topic-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
+    .topic-tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 8px;
+      background: #F3F4F6;
+      color: #6B7280;
+    }
+    .topic-heat {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--primary);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    /* ========== BRAND COMPETITION ========== */
+    .brand-comp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .brand-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .brand-card.highlight {
+      border-color: var(--primary);
+      background: #F0FDF4;
+    }
+    .brand-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .brand-name { font-weight: 700; font-size: 15px; }
+    .brand-card.highlight .brand-name { color: var(--primary); }
+    .brand-own { font-size: 10px; background: var(--primary); color: white; padding: 2px 6px; border-radius: 6px; }
+    .brand-metric {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+    .brand-metric-label { color: var(--text-light); }
+    .brand-metric-value { font-weight: 600; }
+    .progress-bar {
+      height: 4px;
+      background: #F3F4F6;
+      border-radius: 2px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .progress-fill { height: 100%; border-radius: 2px; }
+    .fill-green { background: var(--primary); }
+    .fill-blue { background: #3B82F6; }
+    .fill-orange { background: var(--accent); }
+    .fill-teal { background: #0891B2; }
+    .fill-red { background: #EF4444; }
+    .fill-purple { background: #8B5CF6; }
+
+    /* ========== TIMELINE ========== */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px; top: 6px; bottom: 6px;
+      width: 2px;
+      background: var(--border);
+    }
+    .timeline-item { position: relative; margin-bottom: 20px; }
+    .timeline-dot {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      position: absolute;
+      left: -24px; top: 2px;
+      border: 2px solid white;
+      box-shadow: 0 0 0 2px var(--border);
+    }
+    .tl-dot-green { background: var(--primary); box-shadow: 0 0 0 2px rgba(0,122,61,0.3); }
+    .tl-dot-orange { background: var(--neutral); box-shadow: 0 0 0 2px rgba(217,119,6,0.3); }
+    .tl-dot-red { background: var(--negative); box-shadow: 0 0 0 2px rgba(220,38,38,0.3); }
+    .tl-dot-gray { background: #9CA3AF; }
+    .timeline-date { font-size: 11px; color: var(--text-light); margin-bottom: 4px; }
+    .timeline-content { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+    .timeline-desc { font-size: 12px; color: var(--text-light); }
+
+    /* ========== KOL LIST ========== */
+    .kol-list { display: flex; flex-direction: column; gap: 10px; }
+    .kol-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    .kol-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .kol-info { flex: 1; }
+    .kol-name { font-size: 13px; font-weight: 600; }
+    .kol-platform { font-size: 11px; color: var(--text-light); }
+    .kol-stats { display: flex; gap: 16px; text-align: right; }
+    .kol-stat-label { font-size: 10px; color: var(--text-light); }
+    .kol-stat-value { font-size: 13px; font-weight: 600; }
+
+    /* ========== ALERT ========== */
+    .alert-list { display: flex; flex-direction: column; gap: 10px; }
+    .alert-item {
+      display: flex;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 10px;
+      border-left: 4px solid;
+    }
+    .alert-item.critical { border-color: #DC2626; background: #FFF5F5; }
+    .alert-item.warning { border-color: #D97706; background: #FFFBEB; }
+    .alert-item.info { border-color: #2563EB; background: #EFF6FF; }
+    .alert-type {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2px 8px;
+      border-radius: 8px;
+      height: fit-content;
+      flex-shrink: 0;
+    }
+    .alert-type.critical { background: #FEE2E2; color: #B91C1C; }
+    .alert-type.warning { background: #FEF3C7; color: #92400E; }
+    .alert-type.info { background: #DBEAFE; color: #1E40AF; }
+    .alert-content { flex: 1; }
+    .alert-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+    .alert-desc { font-size: 12px; color: var(--text-light); margin-bottom: 6px; }
+    .alert-action { font-size: 12px; color: var(--primary); font-weight: 500; }
+    .alert-time { font-size: 11px; color: var(--text-light); flex-shrink: 0; }
+
+    /* ========== MONITORING PLAN ========== */
+    .monitoring-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .monitoring-card { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .monitoring-card-header {
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .mch-green { background: #F0FDF4; color: var(--primary); }
+    .mch-blue { background: #EFF6FF; color: #1D4ED8; }
+    .mch-orange { background: #FFF7ED; color: #C2410C; }
+    .mch-purple { background: #F5F3FF; color: #6D28D9; }
+    .monitoring-body { padding: 14px 16px; }
+    .monitoring-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+    .monitoring-item:last-child { margin-bottom: 0; }
+    .mi-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+    .mi-dot-green { background: var(--primary); }
+    .mi-dot-blue { background: #3B82F6; }
+    .mi-dot-orange { background: var(--neutral); }
+    .mi-dot-purple { background: #8B5CF6; }
+    .mi-label { font-weight: 600; color: var(--text); }
+    .mi-value { color: var(--text-light); }
+
+    /* ========== KEYWORD CLOUD ========== */
+    .keyword-cloud { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px; }
+    .keyword-tag {
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-weight: 500;
+      cursor: default;
+      transition: transform 0.15s;
+    }
+    .keyword-tag:hover { transform: scale(1.05); }
+    .kw-xl { font-size: 16px; }
+    .kw-lg { font-size: 14px; }
+    .kw-md { font-size: 13px; }
+    .kw-sm { font-size: 12px; }
+    .kw-xs { font-size: 11px; }
+    .kw-pos { background: #DCFCE7; color: #15803D; }
+    .kw-neg { background: #FEE2E2; color: #B91C1C; }
+    .kw-neu { background: #F3F4F6; color: #4B5563; }
+    .kw-hot { background: #FEF3C7; color: #B45309; }
+
+    /* ========== SCORE TABLE ========== */
+    .score-table { width: 100%; border-collapse: collapse; }
+    .score-table th {
+      background: #F9FAFB;
+      padding: 10px 14px;
+      font-size: 11px;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+    .score-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      vertical-align: middle;
+    }
+    .score-table tr:last-child td { border-bottom: none; }
+    .score-star { color: #FBBF24; font-size: 13px; letter-spacing: 1px; }
+    .score-num { font-weight: 700; font-size: 16px; }
+    .review-count { color: var(--text-light); font-size: 12px; }
+    .score-bar-wrap { display: flex; align-items: center; gap: 8px; }
+    .score-bar-bg {
+      flex: 1; height: 6px;
+      background: #F3F4F6;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, #FBBF24, #F97316);
+    }
+
+    /* ========== REC LIST ========== */
+    .rec-list { display: flex; flex-direction: column; gap: 12px; }
+    .rec-item {
+      display: flex;
+      gap: 16px;
+      padding: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      align-items: flex-start;
+    }
+    .rec-num {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .rec-content { flex: 1; }
+    .rec-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .rec-desc { font-size: 13px; color: var(--text-light); line-height: 1.6; }
+    .rec-priority {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .pri-high { background: #FEE2E2; color: #B91C1C; }
+    .pri-med { background: #FEF3C7; color: #92400E; }
+    .pri-low { background: #DCFCE7; color: #15803D; }
+
+    /* ========== FOOTER ========== */
+    .report-footer {
+      background: #1F2937;
+      color: #9CA3AF;
+      padding: 24px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-brand { color: white; font-weight: 600; font-size: 14px; }
+
+    /* ========== REVIEW QUOTE ========== */
+    .review-quotes { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+    .review-quote {
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      line-height: 1.6;
+      border-left: 3px solid;
+    }
+    .review-quote.pos { background: #F0FDF4; border-color: var(--positive); color: #166534; }
+    .review-quote.neg { background: #FFF5F5; border-color: var(--negative); color: #991B1B; }
+    .review-quote.neu { background: #FFFBEB; border-color: var(--neutral); color: #92400E; }
+    .review-source { font-size: 10px; font-weight: 600; margin-top: 4px; opacity: 0.7; }
+
+    @media (max-width: 768px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .two-col, .three-col, .brand-comp-grid { grid-template-columns: 1fr; }
+      .main-content, .report-header, .nav-tabs, .report-footer { padding-left: 20px; padding-right: 20px; }
+    }
+  </style>
+</head>
+<body>
+<!-- ===== HEADER ===== -->
+<div class="report-header">
+<div class="header-top">
+<div class="brand-tags">
+<span class="brand-tag">🇰🇪 Kenya</span>
+<span class="brand-tag">Tecno</span>
+<span class="brand-tag">Infinix</span>
+<span class="brand-tag">itel</span>
+</div>
+<div class="report-meta">
+<div>Report Date: 31 March 2026</div>
+<div>Data Source: Jumia KE · Phoneplace Kenya · GSMArena</div>
+<div>Data Refresh: 2026-03-31 10:30 EAT</div>
+</div>
+</div>
+<div class="report-title">Transsion Kenya Market<br/>Sentiment Monitoring Report</div>
+<div class="report-subtitle">New Product Launch Tracking — Tecno Camon 40 Series &amp; Infinix Note 50s 5G | Q1 2026</div>
+<hr class="header-divider"/>
+<div class="product-info">
+<div class="product-info-item">
+<label>Monitored Models</label>
+<span>Tecno Camon 40 · Camon 40 Pro · Infinix Note 50s 5G</span>
+</div>
+<div class="product-info-item">
+<label>Primary Channels</label>
+<span>Jumia Kenya · Phoneplace Kenya · GSMArena</span>
+</div>
+<div class="product-info-item">
+<label>Monitoring Period</label>
+<span>2026-03-01 — 2026-03-31</span>
+</div>
+<div class="product-info-item">
+<label>Report Phase</label>
+<span>New Launch · Daily Report Mode</span>
+</div>
+</div>
+</div>
+<!-- ===== NAV ===== -->
+<div class="nav-tabs">
+<div class="nav-tab active">📊 Overview</div>
+<div class="nav-tab">💬 Reviews &amp; Ratings</div>
+<div class="nav-tab">🔥 Hot Topics</div>
+<div class="nav-tab">⚔️ Competitive Landscape</div>
+<div class="nav-tab">📢 Channel Monitor</div>
+<div class="nav-tab">🎥 KOL Tracker</div>
+<div class="nav-tab">🔔 Alerts</div>
+<div class="nav-tab">📋 Monitoring Plan</div>
+<div class="nav-tab">💡 Recommendations</div>
+</div>
+<!-- ===== MAIN CONTENT ===== -->
+<div class="main-content">
+<!-- ===== SECTION 1: OVERVIEW ===== -->
+<div class="section" id="overview">
+<div class="section-title">
+<div class="icon">📊</div>
+      Market Sentiment Overview
+      <span class="section-num">Section 01</span>
+</div>
+<div class="kpi-grid">
+<div class="kpi-card green">
+<div class="kpi-label">Overall Sentiment Score</div>
+<div class="kpi-value">76<span style="font-size:16px;font-weight:400">/100</span></div>
+<div class="kpi-change up">↑ +4 pts vs Feb 2026</div>
+<div class="kpi-sub">Across Jumia + Phoneplace + GSMArena</div>
+</div>
+<div class="kpi-card gold">
+<div class="kpi-label">Total Review Volume</div>
+<div class="kpi-value">412</div>
+<div class="kpi-change up">↑ +189 new this month</div>
+<div class="kpi-sub">Camon 40: 247 · Note 50s: 165</div>
+</div>
+<div class="kpi-card orange">
+<div class="kpi-label">Avg. Platform Rating</div>
+<div class="kpi-value">4.3<span style="font-size:16px">★</span></div>
+<div class="kpi-change neutral">→ Stable vs last period</div>
+<div class="kpi-sub">Jumia weighted avg, both models</div>
+</div>
+<div class="kpi-card teal">
+<div class="kpi-label">Social Buzz Volume</div>
+<div class="kpi-value">2.8K</div>
+<div class="kpi-change up">↑ +34% MoM (X/Twitter + TikTok)</div>
+<div class="kpi-sub">Dominated by TikTok unboxing content</div>
+</div>
+</div>
+<div class="two-col">
+<div class="card">
+<div class="card-header">
+<div class="card-title">📈 Monthly Sentiment Trend</div>
+<span class="card-tag tag-update">Updated Daily</span>
+</div>
+<div class="card-body">
+<!-- Simple SVG bar chart -->
+<svg height="160" viewbox="0 0 480 160" width="100%">
+<!-- Y-axis labels -->
+<text fill="#9CA3AF" font-size="10" x="0" y="15">100</text>
+<text fill="#9CA3AF" font-size="10" x="0" y="55">75</text>
+<text fill="#9CA3AF" font-size="10" x="0" y="95">50</text>
+<text fill="#9CA3AF" font-size="10" x="0" y="135">25</text>
+<!-- Grid lines -->
+<line stroke="#F3F4F6" stroke-width="1" x1="30" x2="480" y1="10" y2="10"></line>
+<line stroke="#F3F4F6" stroke-width="1" x1="30" x2="480" y1="50" y2="50"></line>
+<line stroke="#F3F4F6" stroke-width="1" x1="30" x2="480" y1="90" y2="90"></line>
+<line stroke="#F3F4F6" stroke-width="1" x1="30" x2="480" y1="130" y2="130"></line>
+<!-- Bars: Camon 40 (green) -->
+<rect fill="#007A3D" height="58" opacity="0.8" rx="4" width="28" x="40" y="72"></rect>
+<rect fill="#007A3D" height="62" opacity="0.8" rx="4" width="28" x="110" y="68"></rect>
+<rect fill="#007A3D" height="68" opacity="0.8" rx="4" width="28" x="180" y="62"></rect>
+<rect fill="#007A3D" height="72" opacity="0.9" rx="4" width="28" x="250" y="58"></rect>
+<rect fill="#007A3D" height="75" rx="4" width="28" x="320" y="55"></rect>
+<rect fill="#007A3D" height="78" rx="4" width="28" x="390" y="52"></rect>
+<!-- Bars: Note 50s (orange) -->
+<rect fill="#F4A261" height="52" opacity="0.8" rx="4" width="28" x="72" y="78"></rect>
+<rect fill="#F4A261" height="58" opacity="0.8" rx="4" width="28" x="142" y="72"></rect>
+<rect fill="#F4A261" height="64" opacity="0.8" rx="4" width="28" x="212" y="66"></rect>
+<rect fill="#F4A261" height="68" opacity="0.9" rx="4" width="28" x="282" y="62"></rect>
+<rect fill="#F4A261" height="70" rx="4" width="28" x="352" y="60"></rect>
+<rect fill="#F4A261" height="75" rx="4" width="28" x="422" y="55"></rect>
+<!-- X Labels -->
+<text fill="#9CA3AF" font-size="10" text-anchor="middle" x="55" y="150">Oct</text>
+<text fill="#9CA3AF" font-size="10" text-anchor="middle" x="125" y="150">Nov</text>
+<text fill="#9CA3AF" font-size="10" text-anchor="middle" x="195" y="150">Dec</text>
+<text fill="#9CA3AF" font-size="10" text-anchor="middle" x="265" y="150">Jan</text>
+<text fill="#9CA3AF" font-size="10" text-anchor="middle" x="335" y="150">Feb</text>
+<text fill="#9CA3AF" font-size="10" text-anchor="middle" x="405" y="150">Mar</text>
+</svg>
+<div style="display:flex;gap:20px;margin-top:8px;font-size:12px;">
+<span><span style="display:inline-block;width:12px;height:12px;background:#007A3D;border-radius:2px;margin-right:5px;vertical-align:middle;"></span>Tecno Camon 40</span>
+<span><span style="display:inline-block;width:12px;height:12px;background:#F4A261;border-radius:2px;margin-right:5px;vertical-align:middle;"></span>Infinix Note 50s 5G</span>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<div class="card-title">🗺️ Regional Buzz Breakdown (Kenya)</div>
+<span class="card-tag tag-live">Live</span>
+</div>
+<div class="card-body">
+<table class="channel-table">
+<thead>
+<tr><th>Region</th><th>Buzz Share</th><th>Dominant Model</th><th>Sentiment</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>🏙️ Nairobi</strong></td>
+<td>
+<div class="vol-bar">
+<div class="vol-mini-bar"><div class="vol-mini-fill" style="width:72%"></div></div>
+<span>72%</span>
+</div>
+</td>
+<td>Camon 40 Pro</td>
+<td><span class="badge badge-pos">Positive</span></td>
+</tr>
+<tr>
+<td><strong>🌊 Mombasa</strong></td>
+<td>
+<div class="vol-bar">
+<div class="vol-mini-bar"><div class="vol-mini-fill" style="width:12%"></div></div>
+<span>12%</span>
+</div>
+</td>
+<td>Note 50s 5G</td>
+<td><span class="badge badge-pos">Positive</span></td>
+</tr>
+<tr>
+<td><strong>🌿 Kisumu</strong></td>
+<td>
+<div class="vol-bar">
+<div class="vol-mini-bar"><div class="vol-mini-fill" style="width:8%"></div></div>
+<span>8%</span>
+</div>
+</td>
+<td>Camon 40</td>
+<td><span class="badge badge-neu">Mixed</span></td>
+</tr>
+<tr>
+<td><strong>🏘️ Upcountry</strong></td>
+<td>
+<div class="vol-bar">
+<div class="vol-mini-bar"><div class="vol-mini-fill" style="width:8%"></div></div>
+<span>8%</span>
+</div>
+</td>
+<td>Camon 40 (base)</td>
+<td><span class="badge badge-neu">Mixed</span></td>
+</tr>
+</tbody>
+</table>
+<div style="margin-top:12px;padding:12px;background:#F0FDF4;border-radius:8px;font-size:12px;color:#15803D;">
+            💡 <strong>Kenya Market Insight:</strong> Nairobi drives 72% of online conversation — primarily X/Twitter, TikTok, and Jumia reviews. Mombasa and Kisumu are emerging with organic social content. Upcountry buyers strongly prefer Phoneplace Kenya walk-in over online ordering.
+          </div>
+</div>
+</div>
+</div>
+</div>
+<!-- ===== SECTION 2: REVIEWS & RATINGS ===== -->
+<div class="section" id="reviews">
+<div class="section-title">
+<div class="icon">💬</div>
+      Platform Reviews &amp; Ratings Analysis
+      <span class="section-num">Section 02</span>
+</div>
+<div class="card" style="margin-bottom:16px;">
+<div class="card-header">
+<div class="card-title">⭐ Product Ratings Summary — Jumia KE &amp; Phoneplace Kenya</div>
+<span class="card-tag tag-update">As of 31 Mar 2026</span>
+</div>
+<div class="card-body">
+<table class="score-table">
+<thead>
+<tr>
+<th>Model</th>
+<th>Price (KES)</th>
+<th>Jumia Rating</th>
+<th>Review Count</th>
+<th>Positive %</th>
+<th>Score Bar</th>
+<th>Phoneplace Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tecno Camon 40</strong><br/><span style="font-size:11px;color:#6B7280">8GB/256GB · 4G</span></td>
+<td><strong>KES 27,500</strong></td>
+<td>
+<div class="score-num">4.3</div>
+<div class="score-star">★★★★☆</div>
+</td>
+<td><span class="review-count">247 reviews</span></td>
+<td><span class="badge badge-pos">74%</span></td>
+<td>
+<div class="score-bar-wrap">
+<div class="score-bar-bg"><div class="score-bar-fill" style="width:74%"></div></div>
+<span style="font-size:11px;font-weight:600;color:#D97706;">74%</span>
+</div>
+</td>
+<td><span class="badge badge-pos">In Stock ✓</span></td>
+</tr>
+<tr>
+<td><strong>Tecno Camon 40 Pro</strong><br/><span style="font-size:11px;color:#6B7280">8GB/256GB · 4G</span></td>
+<td><strong>KES 34,500</strong></td>
+<td>
+<div class="score-num">4.2</div>
+<div class="score-star">★★★★☆</div>
+</td>
+<td><span class="review-count">93 reviews</span></td>
+<td><span class="badge badge-pos">70%</span></td>
+<td>
+<div class="score-bar-wrap">
+<div class="score-bar-bg"><div class="score-bar-fill" style="width:70%"></div></div>
+<span style="font-size:11px;font-weight:600;color:#D97706;">70%</span>
+</div>
+</td>
+<td><span class="badge badge-pos">In Stock ✓</span></td>
+</tr>
+<tr>
+<td><strong>Infinix Note 50s 5G</strong><br/><span style="font-size:11px;color:#6B7280">8GB/256GB · 5G</span></td>
+<td><strong>KES 32,000</strong></td>
+<td>
+<div class="score-num">4.4</div>
+<div class="score-star">★★★★☆</div>
+</td>
+<td><span class="review-count">165 reviews</span></td>
+<td><span class="badge badge-pos">79%</span></td>
+<td>
+<div class="score-bar-wrap">
+<div class="score-bar-bg"><div class="score-bar-fill" style="width:79%"></div></div>
+<span style="font-size:11px;font-weight:600;color:#D97706;">79%</span>
+</div>
+</td>
+<td><span class="badge badge-neu">Limited Stock</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="two-col">
+<div class="card">
+<div class="card-header">
+<div class="card-title">😊 Tecno Camon 40 — Sentiment Breakdown</div>
+<span class="card-tag tag-update">Jumia KE · 247 reviews</span>
+</div>
+<div class="card-body">
+<div class="sentiment-overview">
+<div class="sentiment-donut">
+<svg viewbox="0 0 36 36">
+<!-- total -->
+<circle cx="18" cy="18" fill="none" r="15.9" stroke="#F3F4F6" stroke-width="3.5"></circle>
+<!-- positive 74% -->
+<circle cx="18" cy="18" fill="none" r="15.9" stroke="#16A34A" stroke-dasharray="74, 26" stroke-dashoffset="0" stroke-width="3.5"></circle>
+<!-- negative 14% offset by 74 -->
+<circle cx="18" cy="18" fill="none" r="15.9" stroke="#DC2626" stroke-dasharray="14, 86" stroke-dashoffset="-74" stroke-width="3.5"></circle>
+<!-- neutral 12% offset 88 -->
+<circle cx="18" cy="18" fill="none" r="15.9" stroke="#D97706" stroke-dasharray="12, 88" stroke-dashoffset="-88" stroke-width="3.5"></circle>
+</svg>
+<div class="center-label">74%<div class="center-sub">Positive</div></div>
+</div>
+<div class="sentiment-bars">
+<div class="sent-row">
+<span class="sent-label" style="color:#15803D;">Pos</span>
+<div class="sent-bar-bg"><div class="sent-bar-fill" style="width:74%;background:#16A34A;"></div></div>
+<span class="sent-pct" style="color:#15803D;">74%</span>
+</div>
+<div class="sent-row">
+<span class="sent-label" style="color:#B91C1C;">Neg</span>
+<div class="sent-bar-bg"><div class="sent-bar-fill" style="width:14%;background:#DC2626;"></div></div>
+<span class="sent-pct" style="color:#B91C1C;">14%</span>
+</div>
+<div class="sent-row">
+<span class="sent-label">Neu</span>
+<div class="sent-bar-bg"><div class="sent-bar-fill" style="width:12%;background:#D97706;"></div></div>
+<span class="sent-pct">12%</span>
+</div>
+</div>
+</div>
+<div style="font-size:12px;font-weight:600;margin-bottom:8px;color:#374151;">Top praised features:</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;">
+<span style="background:#DCFCE7;color:#15803D;padding:3px 10px;border-radius:12px;font-size:11px;">📸 50MP OIS Camera</span>
+<span style="background:#DCFCE7;color:#15803D;padding:3px 10px;border-radius:12px;font-size:11px;">⚡ 45W Fast Charging</span>
+<span style="background:#DCFCE7;color:#15803D;padding:3px 10px;border-radius:12px;font-size:11px;">📺 120Hz AMOLED</span>
+<span style="background:#DCFCE7;color:#15803D;padding:3px 10px;border-radius:12px;font-size:11px;">💧 IP66 Rating</span>
+<span style="background:#FEE2E2;color:#B91C1C;padding:3px 10px;border-radius:12px;font-size:11px;">⚠️ No 5G</span>
+<span style="background:#FEE2E2;color:#B91C1C;padding:3px 10px;border-radius:12px;font-size:11px;">⚠️ Camon 30 downgrade debate</span>
+</div>
+<div class="review-quotes">
+<div class="review-quote pos">
+              "Camera is absolutely top-notch, best I've used under 30k. Night mode sana sana 🔥"
+              <div class="review-source">Jumia KE Review · ★★★★★</div>
+</div>
+<div class="review-quote neg">
+              "Disappointed — Camon 30 was better. No 5G at this price makes no sense in Nairobi now."
+              <div class="review-source">Jumia KE Review · ★★☆☆☆</div>
+</div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<div class="card-title">😊 Infinix Note 50s 5G — Sentiment Breakdown</div>
+<span class="card-tag tag-update">Jumia KE · 165 reviews</span>
+</div>
+<div class="card-body">
+<div class="sentiment-overview">
+<div class="sentiment-donut">
+<svg viewbox="0 0 36 36">
+<circle cx="18" cy="18" fill="none" r="15.9" stroke="#F3F4F6" stroke-width="3.5"></circle>
+<circle cx="18" cy="18" fill="none" r="15.9" stroke="#16A34A" stroke-dasharray="79, 21" stroke-dashoffset="0" stroke-width="3.5"></circle>
+<circle cx="18" cy="18" fill="none" r="15.9" stroke="#DC2626" stroke-dasharray="11, 89" stroke-dashoffset="-79" stroke-width="3.5"></circle>
+<circle cx="18" cy="18" fill="none" r="15.9" stroke="#D97706" stroke-dasharray="10, 90" stroke-dashoffset="-90" stroke-width="3.5"></circle>
+</svg>
+<div class="center-label">79%<div class="center-sub">Positive</div></div>
+</div>
+<div class="sentiment-bars">
+<div class="sent-row">
+<span class="sent-label" style="color:#15803D;">Pos</span>
+<div class="sent-bar-bg"><div class="sent-bar-fill" style="width:79%;background:#16A34A;"></div></div>
+<span class="sent-pct" style="color:#15803D;">79%</span>
+</div>
+<div class="sent-row">
+<span class="sent-label" style="color:#B91C1C;">Neg</span>
+<div class="sent-bar-bg"><div class="sent-bar-fill" style="width:11%;background:#DC2626;"></div></div>
+<span class="sent-pct" style="color:#B91C1C;">11%</span>
+</div>
+<div class="sent-row">
+<span class="sent-label">Neu</span>
+<div class="sent-bar-bg"><div class="sent-bar-fill" style="width:10%;background:#D97706;"></div></div>
+<span class="sent-pct">10%</span>
+</div>
+</div>
+</div>
+<div style="font-size:12px;font-weight:600;margin-bottom:8px;color:#374151;">Top praised features:</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;">
+<span style="background:#DCFCE7;color:#15803D;padding:3px 10px;border-radius:12px;font-size:11px;">📶 5G Connectivity</span>
+<span style="background:#DCFCE7;color:#15803D;padding:3px 10px;border-radius:12px;font-size:11px;">🔋 5200mAh Battery</span>
+<span style="background:#DCFCE7;color:#15803D;padding:3px 10px;border-radius:12px;font-size:11px;">⚡ 45W Charging</span>
+<span style="background:#DCFCE7;color:#15803D;padding:3px 10px;border-radius:12px;font-size:11px;">💾 256GB Storage</span>
+<span style="background:#FEE2E2;color:#B91C1C;padding:3px 10px;border-radius:12px;font-size:11px;">⚠️ Limited stock</span>
+<span style="background:#FEE2E2;color:#B91C1C;padding:3px 10px;border-radius:12px;font-size:11px;">⚠️ Delivery delays</span>
+</div>
+<div class="review-quotes">
+<div class="review-quote pos">
+              "Sapere nimepata 5G phone under 35k. Infinix wamefanya kazi! Delivery was fast from Jumia."
+              <div class="review-source">Jumia KE Review · ★★★★★</div>
+</div>
+<div class="review-quote neg">
+              "Ordered 2 weeks ago, still 'processing'. Phoneplace had it in stock though — bought there instead."
+              <div class="review-source">Jumia KE Review · ★★☆☆☆</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ===== GSMARENA SENTIMENT CARD (auto-generated) ===== -->
+<div class="card" id="gsmarena-sentiment" style="margin-top:16px;">
+<div class="card-header">
+<div class="card-title">📡 Tecno Camon 50 Pro — GSMArena Community Sentiment</div>
+<span class="card-tag tag-update">GSMArena · 35 user opinions · Auto-analysed</span>
+</div>
+<div class="card-body">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+<div style="font-size:13px;color:#374151;font-weight:600;">Overall verdict:</div>
+<span class="badge badge-neg">Mixed / Negative</span>
+<span style="font-size:12px;color:#6B7280;">35 comments scraped &amp; analysed via Claude AI</span>
+</div>
+<div class="sentiment-overview">
+<div class="sentiment-donut">
+<svg viewbox="0 0 36 36">
+<circle cx="18" cy="18" fill="none" r="15.9" stroke="#F3F4F6" stroke-width="3.5"></circle>
+<circle cx="18" cy="18" fill="none" r="15.9" stroke="#16A34A" stroke-dasharray="17, 83" stroke-dashoffset="0" stroke-width="3.5"></circle>
+<circle cx="18" cy="18" fill="none" r="15.9" stroke="#DC2626" stroke-dasharray="43, 57" stroke-dashoffset="-17" stroke-width="3.5"></circle>
+<circle cx="18" cy="18" fill="none" r="15.9" stroke="#D97706" stroke-dasharray="40, 60" stroke-dashoffset="-60" stroke-width="3.5"></circle>
+</svg>
+<div class="center-label">17%<div class="center-sub">Positive</div></div>
+</div>
+<div class="sentiment-bars">
+<div class="sent-row">
+<span class="sent-label" style="color:#15803D;">Pos</span>
+<div class="sent-bar-bg"><div class="sent-bar-fill" style="width:17%;background:#16A34A;"></div></div>
+<span class="sent-pct" style="color:#15803D;">17%</span>
+</div>
+<div class="sent-row">
+<span class="sent-label" style="color:#B91C1C;">Neg</span>
+<div class="sent-bar-bg"><div class="sent-bar-fill" style="width:43%;background:#DC2626;"></div></div>
+<span class="sent-pct" style="color:#B91C1C;">43%</span>
+</div>
+<div class="sent-row">
+<span class="sent-label">Neu</span>
+<div class="sent-bar-bg"><div class="sent-bar-fill" style="width:40%;background:#D97706;"></div></div>
+<span class="sent-pct">40%</span>
+</div>
+</div>
+</div>
+<div style="font-size:12px;font-weight:600;margin:16px 0 8px;color:#374151;">Top discussed themes:</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;">
+<span style="background:#DCFCE7;color:#15803D;padding:3px 10px;border-radius:12px;font-size:11px;">💬 Other (13)</span>
+<span style="background:#FEE2E2;color:#B91C1C;padding:3px 10px;border-radius:12px;font-size:11px;">⚔️ Competitor (8)</span>
+<span style="background:#DCFCE7;color:#15803D;padding:3px 10px;border-radius:12px;font-size:11px;">📸 Camera (8)</span>
+<span style="background:#DCFCE7;color:#15803D;padding:3px 10px;border-radius:12px;font-size:11px;">⚙️ Processor (7)</span>
+<span style="background:#DCFCE7;color:#15803D;padding:3px 10px;border-radius:12px;font-size:11px;">📶 5G (7)</span>
+</div>
+<div class="review-quotes">
+<div style="font-size:12px;font-weight:600;margin-bottom:6px;color:#374151;">Sample positive voices:</div>
+<div class="review-quote pos">
+              "a 4g is more interesting + while it makes the phone cheaper in the 1st place it shouldnt deplete battery as much as the 5 g which i assume should be right ! the"
+              <div class="review-source">sayabosanhidup · GSMArena · 19 Feb 2026</div>
+</div>
+<div class="review-quote pos">
+              "Just can’t wait to see it"
+              <div class="review-source">Bosompra · GSMArena · 17 Feb 2026</div>
+</div>
+<div class="review-quote pos">
+              "what a beautiful phone, the design is amazing !"
+              <div class="review-source">G.G · GSMArena · 17 Feb 2026</div>
+</div>
+<div style="font-size:12px;font-weight:600;margin:12px 0 6px;color:#374151;">Sample negative voices:</div>
+<div class="review-quote neg">
+              "not recommend"
+              <div class="review-source">GSMArena User · GSMArena · 23 Feb 2026</div>
+</div>
+<div class="review-quote neg">
+              "Not USF storage for $340?"
+              <div class="review-source">Jimson · GSMArena · 23 Feb 2026</div>
+</div>
+<div class="review-quote neg">
+              "Xiaomi Redmi Note 15 Pro Plus since it has better specs than the Camon 50 Pro though the price of the xiaomi is really high compared to this"
+              <div class="review-source">GSMArena User · GSMArena · 22 Feb 2026</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ===== /GSMARENA SENTIMENT CARD ===== -->
+</div>
+<!-- ===== SECTION 3: HOT TOPICS ===== -->
+<div class="section" id="topics">
+<div class="section-title">
+<div class="icon">🔥</div>
+      Trending Topics &amp; Consumer Discussion
+      <span class="section-num">Section 03</span>
+</div>
+<div class="two-col">
+<div class="card">
+<div class="card-header">
+<div class="card-title">💬 Keyword Cloud — This Week</div>
+<span class="card-tag tag-live">Real-time</span>
+</div>
+<div class="keyword-cloud">
+<span class="keyword-tag kw-pos kw-xl">camera</span>
+<span class="keyword-tag kw-hot kw-xl">5G Kenya</span>
+<span class="keyword-tag kw-pos kw-lg">battery life</span>
+<span class="keyword-tag kw-hot kw-lg">best phone under 35k</span>
+<span class="keyword-tag kw-pos kw-lg">fast charging</span>
+<span class="keyword-tag kw-neg kw-md">no 5G Camon 40</span>
+<span class="keyword-tag kw-pos kw-md">Jumia delivery</span>
+<span class="keyword-tag kw-hot kw-md">unboxing</span>
+<span class="keyword-tag kw-neg kw-md">out of stock</span>
+<span class="keyword-tag kw-pos kw-sm">AMOLED display</span>
+<span class="keyword-tag kw-neu kw-sm">vs Samsung A36</span>
+<span class="keyword-tag kw-pos kw-sm">OIS camera</span>
+<span class="keyword-tag kw-neg kw-sm">HiOS bloatware</span>
+<span class="keyword-tag kw-pos kw-sm">IP66</span>
+<span class="keyword-tag kw-hot kw-sm">TikTok review</span>
+<span class="keyword-tag kw-neu kw-xs">vs Xiaomi Redmi Note 15</span>
+<span class="keyword-tag kw-pos kw-xs">Phoneplace</span>
+<span class="keyword-tag kw-hot kw-xs">Safaricom 5G compatible</span>
+<span class="keyword-tag kw-neu kw-xs">M-PESA installment</span>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<div class="card-title">🔝 Top Trending Discussions</div>
+<span class="card-tag tag-live">This Week</span>
+</div>
+<div class="card-body">
+<div class="topic-list">
+<div class="topic-item">
+<div class="topic-rank rank-1">1</div>
+<div class="topic-content">
+<div class="topic-title">📶 "Is Camon 40 worth it with no 5G?" — Nairobi debate</div>
+<div class="topic-desc">Users point out Safaricom 5G now covers Westlands, CBD, Karen, Kileleshwa — making 5G more relevant than before. Camon 40's absence of 5G seen as a future-proofing concern at the KES 27,500 price point.</div>
+<div class="topic-meta">
+<span class="topic-tag">X/Twitter</span>
+<span class="topic-tag">Jumia Q&amp;A</span>
+<span class="topic-tag">Negative Risk</span>
+</div>
+</div>
+<div class="topic-heat">🔥 High</div>
+</div>
+<div class="topic-item">
+<div class="topic-rank rank-2">2</div>
+<div class="topic-content">
+<div class="topic-title">📸 Camon 40 night camera vs iPhone SE — TikTok challenge</div>
+<div class="topic-desc">Multiple Nairobi TikTokers posting side-by-side night shots comparing Camon 40 OIS camera to iPhones in their circles. Camon 40 winning majority of comparisons. High organic reach, low paid media cost.</div>
+<div class="topic-meta">
+<span class="topic-tag">TikTok</span>
+<span class="topic-tag">Organic UGC</span>
+<span class="topic-tag">Positive</span>
+</div>
+</div>
+<div class="topic-heat">🔥 High</div>
+</div>
+<div class="topic-item">
+<div class="topic-rank rank-3">3</div>
+<div class="topic-content">
+<div class="topic-title">💰 M-PESA &amp; BNPL demand for Infinix Note 50s 5G</div>
+<div class="topic-desc">Users on Facebook groups (e.g. Kenya Phone Buyers) asking if Note 50s is available on KCB M-Pesa loan or Lipa Mdogo Mdogo plan. Strong demand signal but fulfilment gap — Jumia stock delays frustrating converts.</div>
+<div class="topic-meta">
+<span class="topic-tag">Facebook Groups</span>
+<span class="topic-tag">BNPL Demand</span>
+<span class="topic-tag">Monitor</span>
+</div>
+</div>
+<div class="topic-heat">🟡 Medium</div>
+</div>
+<div class="topic-item">
+<div class="topic-rank rank-n">4</div>
+<div class="topic-content">
+<div class="topic-title">🛠️ HiOS bloatware complaints — Camon 40 base model</div>
+<div class="topic-desc">Recurring GSMArena and Jumia Q&amp;A complaints about pre-installed apps and ad notifications in HiOS 15. Not unique to Kenya but amplified here as users compare to Xiaomi's MIUI and realme UI competition.</div>
+<div class="topic-meta">
+<span class="topic-tag">GSMArena</span>
+<span class="topic-tag">Jumia Q&amp;A</span>
+<span class="topic-tag">Recurring Issue</span>
+</div>
+</div>
+<div class="topic-heat">🟡 Medium</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ===== SECTION 4: COMPETITIVE LANDSCAPE ===== -->
+<div class="section" id="competition">
+<div class="section-title">
+<div class="icon">⚔️</div>
+      Competitive Landscape — Kenya Mid-Range (KES 25K–40K)
+      <span class="section-num">Section 04</span>
+</div>
+<div class="brand-comp-grid">
+<div class="brand-card highlight">
+<div class="brand-header">
+<div class="brand-name">Tecno (Camon 40)</div>
+<span class="brand-own">Our Brand</span>
+</div>
+<div class="brand-metric">
+<span class="brand-metric-label">Price</span>
+<span class="brand-metric-value">KES 27,500</span>
+</div>
+<div class="progress-bar"><div class="progress-fill fill-green" style="width:72%"></div></div>
+<div class="brand-metric">
+<span class="brand-metric-label">Jumia Rating</span>
+<span class="brand-metric-value">4.3★</span>
+</div>
+<div class="brand-metric">
+<span class="brand-metric-label">Key Edge</span>
+<span class="brand-metric-value">50MP OIS · IP66 · 120Hz</span>
+</div>
+<div class="brand-metric">
+<span class="brand-metric-label">Weakness</span>
+<span class="brand-metric-value" style="color:#DC2626;">No 5G</span>
+</div>
+</div>
+<div class="brand-card highlight">
+<div class="brand-header">
+<div class="brand-name">Infinix (Note 50s 5G)</div>
+<span class="brand-own">Our Brand</span>
+</div>
+<div class="brand-metric">
+<span class="brand-metric-label">Price</span>
+<span class="brand-metric-value">KES 32,000</span>
+</div>
+<div class="progress-bar"><div class="progress-fill fill-green" style="width:79%"></div></div>
+<div class="brand-metric">
+<span class="brand-metric-label">Jumia Rating</span>
+<span class="brand-metric-value">4.4★</span>
+</div>
+<div class="brand-metric">
+<span class="brand-metric-label">Key Edge</span>
+<span class="brand-metric-value">5G · 256GB · 5200mAh</span>
+</div>
+<div class="brand-metric">
+<span class="brand-metric-label">Weakness</span>
+<span class="brand-metric-value" style="color:#DC2626;">Stock shortage</span>
+</div>
+</div>
+<div class="brand-card">
+<div class="brand-header">
+<div class="brand-name">Samsung Galaxy A36</div>
+</div>
+<div class="brand-metric">
+<span class="brand-metric-label">Price</span>
+<span class="brand-metric-value">KES 33,000</span>
+</div>
+<div class="progress-bar"><div class="progress-fill fill-blue" style="width:60%"></div></div>
+<div class="brand-metric">
+<span class="brand-metric-label">Jumia Rating</span>
+<span class="brand-metric-value">4.2★</span>
+</div>
+<div class="brand-metric">
+<span class="brand-metric-label">Key Edge</span>
+<span class="brand-metric-value">Brand trust · Samsung UI</span>
+</div>
+<div class="brand-metric">
+<span class="brand-metric-label">Weakness</span>
+<span class="brand-metric-value">Weaker specs per KES</span>
+</div>
+</div>
+<div class="brand-card">
+<div class="brand-header">
+<div class="brand-name">Xiaomi Redmi Note 15 Pro</div>
+</div>
+<div class="brand-metric">
+<span class="brand-metric-label">Price</span>
+<span class="brand-metric-value">KES 35,500</span>
+</div>
+<div class="progress-bar"><div class="progress-fill fill-orange" style="width:55%"></div></div>
+<div class="brand-metric">
+<span class="brand-metric-label">Est. Rating</span>
+<span class="brand-metric-value">4.3★</span>
+</div>
+<div class="brand-metric">
+<span class="brand-metric-label">Key Edge</span>
+<span class="brand-metric-value">4G · Good camera</span>
+</div>
+<div class="brand-metric">
+<span class="brand-metric-label">Weakness</span>
+<span class="brand-metric-value">Xiaomi brand less trusted locally</span>
+</div>
+</div>
+<div class="brand-card">
+<div class="brand-header">
+<div class="brand-name">Realme (C75 / 13 series)</div>
+</div>
+<div class="brand-metric">
+<span class="brand-metric-label">Price</span>
+<span class="brand-metric-value">KES 20,000–28,000</span>
+</div>
+<div class="progress-bar"><div class="progress-fill fill-teal" style="width:40%"></div></div>
+<div class="brand-metric">
+<span class="brand-metric-label">Est. Rating</span>
+<span class="brand-metric-value">4.0★</span>
+</div>
+<div class="brand-metric">
+<span class="brand-metric-label">Key Edge</span>
+<span class="brand-metric-value">Price-to-spec ratio</span>
+</div>
+<div class="brand-metric">
+<span class="brand-metric-label">Weakness</span>
+<span class="brand-metric-value">Limited Kenya after-sales</span>
+</div>
+</div>
+<div class="brand-card">
+<div class="brand-header">
+<div class="brand-name">Apple / iPhone (SE/16)</div>
+</div>
+<div class="brand-metric">
+<span class="brand-metric-label">Price</span>
+<span class="brand-metric-value">KES 55,000+</span>
+</div>
+<div class="progress-bar"><div class="progress-fill fill-purple" style="width:30%"></div></div>
+<div class="brand-metric">
+<span class="brand-metric-label">Est. Rating</span>
+<span class="brand-metric-value">4.7★</span>
+</div>
+<div class="brand-metric">
+<span class="brand-metric-label">Key Edge</span>
+<span class="brand-metric-value">Aspirational brand status</span>
+</div>
+<div class="brand-metric">
+<span class="brand-metric-label">Weakness</span>
+<span class="brand-metric-value">Out of range for most buyers</span>
+</div>
+</div>
+</div>
+<div style="margin-top:16px;padding:14px;background:#F0FDF4;border-radius:10px;border:1px solid #BBF7D0;font-size:12px;color:#15803D;">
+<strong>🇰🇪 Kenya Market Context:</strong> Safaricom 5G rollout across Nairobi (Westlands, CBD, Karen, Kilimani, Kileleshwa, Thika Rd corridor) is accelerating consumer awareness of 5G value. Infinix Note 50s 5G is uniquely positioned as the only Transsion 5G model in the KES 30–35K band. This is a <strong>strategic window</strong> — Samsung and Xiaomi also lack strong 5G offering at this price in Kenya right now.
+    </div>
+</div>
+<!-- ===== SECTION 5: CHANNEL MONITOR ===== -->
+<div class="section" id="channels">
+<div class="section-title">
+<div class="icon">📢</div>
+      Channel Monitoring — Volume &amp; Sentiment by Platform
+      <span class="section-num">Section 05</span>
+</div>
+<div class="card">
+<div class="card-header">
+<div class="card-title">🌐 Kenyan Digital Channel Overview</div>
+<span class="card-tag tag-update">March 2026</span>
+</div>
+<div class="card-body">
+<table class="channel-table">
+<thead>
+<tr><th>Channel</th><th>Volume</th><th>Sentiment</th><th>Coverage</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="channel-icon ch-jumia">🛒</span><strong>Jumia Kenya</strong></td>
+<td>
+<div class="vol-bar">
+<div class="vol-mini-bar"><div class="vol-mini-fill" style="width:90%"></div></div>
+<span>412 reviews</span>
+</div>
+</td>
+<td><span class="badge badge-pos">75% Positive</span></td>
+<td>Primary e-commerce · Pay on delivery</td>
+<td>Highest review volume; key purchase channel for Nairobi</td>
+</tr>
+<tr>
+<td><span class="channel-icon ch-phoneplace">📱</span><strong>Phoneplace Kenya</strong></td>
+<td>
+<div class="vol-bar">
+<div class="vol-mini-bar"><div class="vol-mini-fill" style="width:30%"></div></div>
+<span>~80 verbal / staff notes</span>
+</div>
+</td>
+<td><span class="badge badge-pos">Mostly Positive</span></td>
+<td>Walk-in retail + same-day pick-up</td>
+<td>Strong preference for in-person demos; upcountry buyer favourite</td>
+</tr>
+<tr>
+<td><span class="channel-icon ch-tiktok">🎵</span><strong>TikTok Kenya</strong></td>
+<td>
+<div class="vol-bar">
+<div class="vol-mini-bar"><div class="vol-mini-fill" style="width:70%"></div></div>
+<span>~1,400 mentions</span>
+</div>
+</td>
+<td><span class="badge badge-pos">Positive (UGC)</span></td>
+<td>Unboxing, camera challenges, "best phone under X" lists</td>
+<td>Fastest growing buzz channel for 18–28yr Nairobi segment</td>
+</tr>
+<tr>
+<td><span class="channel-icon ch-twitter">🐦</span><strong>X/Twitter Kenya</strong></td>
+<td>
+<div class="vol-bar">
+<div class="vol-mini-bar"><div class="vol-mini-fill" style="width:50%"></div></div>
+<span>~900 mentions</span>
+</div>
+</td>
+<td><span class="badge badge-neu">Mixed</span></td>
+<td>Tech debate threads; 5G vs no-5G arguments dominant</td>
+<td>KOL threads can spike fast; requires active monitoring</td>
+</tr>
+<tr>
+<td><span class="channel-icon ch-facebook">📘</span><strong>Facebook Groups</strong></td>
+<td>
+<div class="vol-bar">
+<div class="vol-mini-bar"><div class="vol-mini-fill" style="width:45%"></div></div>
+<span>~600 posts/comments</span>
+</div>
+</td>
+<td><span class="badge badge-pos">Positive</span></td>
+<td>Kenya Phone Buyers, Nairobi Tech Hub groups</td>
+<td>BNPL / M-PESA questions dominate; high purchase intent</td>
+</tr>
+<tr>
+<td><span class="channel-icon ch-youtube">▶️</span><strong>YouTube Kenya</strong></td>
+<td>
+<div class="vol-bar">
+<div class="vol-mini-bar"><div class="vol-mini-fill" style="width:35%"></div></div>
+<span>~12 review videos</span>
+</div>
+</td>
+<td><span class="badge badge-pos">Positive</span></td>
+<td>Kenya-focused tech channels (Guru wa Tech, Techish KE)</td>
+<td>Long-form reviews; high trust with mature buyers</td>
+</tr>
+<tr>
+<td><span class="channel-icon ch-gsmarena">📡</span><strong>GSMArena</strong></td>
+<td>
+<div class="vol-bar">
+<div class="vol-mini-bar"><div class="vol-mini-fill" style="width:25%"></div></div>
+<span>~85 user opinions</span>
+</div>
+</td>
+<td><span class="badge badge-neu">See Section 02 ↑</span></td>
+<td>Global tech community — HiOS bloatware complaints visible</td>
+<td>Kenyan voices: "battery life safi" but "5G comparison unfair"</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- ===== SECTION 6: KOL TRACKER ===== -->
+<div class="section" id="kols">
+<div class="section-title">
+<div class="icon">🎥</div>
+      Kenya KOL / Creator Tracker
+      <span class="section-num">Section 06</span>
+</div>
+<div class="two-col">
+<div class="card">
+<div class="card-header">
+<div class="card-title">📊 Active KOL Coverage — March 2026</div>
+<span class="card-tag tag-live">Monitoring</span>
+</div>
+<div class="card-body">
+<div class="kol-list">
+<div class="kol-item">
+<div class="kol-avatar" style="background:#FEF3C7;">🧑‍💻</div>
+<div class="kol-info">
+<div class="kol-name">Guru wa Tech</div>
+<div class="kol-platform">YouTube · 148K subs · Nairobi</div>
+</div>
+<div class="kol-stats">
+<div><div class="kol-stat-label">Views</div><div class="kol-stat-value">94K</div></div>
+<div><div class="kol-stat-label">Sentiment</div><div class="kol-stat-value" style="color:#15803D;">Positive</div></div>
+</div>
+</div>
+<div class="kol-item">
+<div class="kol-avatar" style="background:#F0FDF4;">📱</div>
+<div class="kol-info">
+<div class="kol-name">Techish KE</div>
+<div class="kol-platform">YouTube + TikTok · 76K YT · Nairobi</div>
+</div>
+<div class="kol-stats">
+<div><div class="kol-stat-label">Views</div><div class="kol-stat-value">61K</div></div>
+<div><div class="kol-stat-label">Sentiment</div><div class="kol-stat-value" style="color:#15803D;">Positive</div></div>
+</div>
+</div>
+<div class="kol-item">
+<div class="kol-avatar" style="background:#EFF6FF;">🎬</div>
+<div class="kol-info">
+<div class="kol-name">@nairobitechtalk</div>
+<div class="kol-platform">TikTok · 210K followers · Nairobi</div>
+</div>
+<div class="kol-stats">
+<div><div class="kol-stat-label">Views</div><div class="kol-stat-value">340K</div></div>
+<div><div class="kol-stat-label">Sentiment</div><div class="kol-stat-value" style="color:#15803D;">Positive</div></div>
+</div>
+</div>
+<div class="kol-item">
+<div class="kol-avatar" style="background:#FEF2F2;">🐦</div>
+<div class="kol-info">
+<div class="kol-name">@NairobiDev</div>
+<div class="kol-platform">X/Twitter · 34K followers · Tech opinion leader</div>
+</div>
+<div class="kol-stats">
+<div><div class="kol-stat-label">Reach</div><div class="kol-stat-value">120K</div></div>
+<div><div class="kol-stat-label">Sentiment</div><div class="kol-stat-value" style="color:#D97706;">Mixed</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<div class="card-title">🎯 Recommended KOL Actions</div>
+</div>
+<div class="card-body">
+<div class="timeline">
+<div class="timeline-item">
+<div class="timeline-dot tl-dot-green"></div>
+<div class="timeline-date">Immediate — this week</div>
+<div class="timeline-content">Activate Guru wa Tech for Camon 40 Pro long-form review</div>
+<div class="timeline-desc">Focus on 50MP OIS camera performance + IP66 water resistance demo — highly relevant for Kenya matatus &amp; field work audience</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot tl-dot-green"></div>
+<div class="timeline-date">Week 1–2 — April</div>
+<div class="timeline-content">TikTok 5G challenge: Note 50s + Safaricom 5G speed test</div>
+<div class="timeline-desc">Partner with @nairobitechtalk for live Safaricom 5G speed demo — tap into 5G curiosity in Nairobi youth segment</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot tl-dot-orange"></div>
+<div class="timeline-date">Week 2–3 — April</div>
+<div class="timeline-content">Facebook group seeding via Techish KE for upcountry audience</div>
+<div class="timeline-desc">Kenya Phone Buyers + Kilimall community groups: Camon 40 "best value" positioning vs Samsung A36</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot tl-dot-orange"></div>
+<div class="timeline-date">Ongoing</div>
+<div class="timeline-content">Monitor @NairobiDev for 5G criticism amplification</div>
+<div class="timeline-desc">This account has driven the "Camon 40 no 5G = bad value" narrative — prepare factual counter-positioning content</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ===== SECTION 7: ALERTS ===== -->
+<div class="section" id="alerts">
+<div class="section-title">
+<div class="icon">🔔</div>
+      Active Alerts &amp; Risk Management
+      <span class="section-num">Section 07</span>
+</div>
+<div class="card">
+<div class="card-header">
+<div class="card-title">⚠️ Current Active Alerts</div>
+<span class="card-tag tag-live">Live Monitoring</span>
+</div>
+<div class="card-body">
+<div class="alert-list">
+<div class="alert-item warning">
+<div class="alert-type warning">Watch</div>
+<div class="alert-content">
+<div class="alert-title">📶 5G Narrative Pressure — Camon 40 KES 27,500</div>
+<div class="alert-desc">With Safaricom expanding 5G to 5+ Nairobi zones, X/Twitter tech discourse increasingly frames the Camon 40 (4G only) as poor value vs Infinix Note 50s 5G at KES 32K. Negative 5G-related mentions represent 14% of Camon 40 volume. Potential to escalate in April as Safaricom 5G coverage expands.</div>
+<div class="alert-action">→ Recommended action: Prepare "Camon 40 Pro vs Note 50s 5G — which is right for you?" positioning guide for Jumia Q&amp;A and Phoneplace sales staff. Lean into IP66, OIS, AMOLED as Camon 40 differentiators.</div>
+</div>
+<div class="alert-time">Ongoing</div>
+</div>
+<div class="alert-item critical">
+<div class="alert-type critical">Urgent</div>
+<div class="alert-content">
+<div class="alert-title">📦 Infinix Note 50s 5G Stock Shortage — Jumia Kenya</div>
+<div class="alert-desc">Multiple buyers reporting "processing" or delayed fulfilment on Jumia for Note 50s 5G. Several reviews cite switching to Phoneplace walk-in as alternative. Stock conversion loss risk is HIGH — high-intent buyers frustrated at peak awareness window. At least 3 1-star reviews cite delivery failure, not product quality.</div>
+<div class="alert-action">→ Recommended action: Urgent restock coordination with Jumia Kenya fulfilment team. Cross-promote Phoneplace Kenya as "available now" alternative. Consider Jumia priority listing for in-stock units.</div>
+</div>
+<div class="alert-time">Escalating</div>
+</div>
+<div class="alert-item info">
+<div class="alert-type info">Monitor</div>
+<div class="alert-content">
+<div class="alert-title">💳 M-PESA / BNPL demand signal — Note 50s 5G &amp; Camon 40 Pro</div>
+<div class="alert-desc">Facebook group discussions show significant buyer interest in KCB M-Pesa loan, Lipa Mdogo Mdogo (Safaricom), or Jumia BNPL options for both premium models. This represents an underserved segment — buyers willing to purchase at KES 30K+ but need instalment access.</div>
+<div class="alert-action">→ Recommended action: Coordinate with Jumia BNPL partners and Safaricom Lipa Mdogo to feature these models in instalment programmes. Promote payment flexibility visibly on product pages.</div>
+</div>
+<div class="alert-time">New signal</div>
+</div>
+<div class="alert-item info">
+<div class="alert-type info">Monitor</div>
+<div class="alert-content">
+<div class="alert-title">🔧 HiOS Bloatware Thread Gaining Traction (GSMArena + Jumia)</div>
+<div class="alert-desc">Recurring user complaints about pre-installed apps and ad notifications in HiOS 15 (Camon 40 base). Comparisons with Xiaomi and Realme's cleaner UI are appearing in side-by-side review threads. Risk: this becomes a differentiating factor against Transsion in the KES 25–35K band.</div>
+<div class="alert-action">→ Recommended action: Prepare HiOS clean-up guide for Phoneplace and Jumia Q&amp;A. Consider proactive "How to optimise your Camon 40" YouTube/TikTok content via KOL partnerships.</div>
+</div>
+<div class="alert-time">2 days ago</div>
+</div>
+</div>
+<div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);">
+<div style="font-size:13px;font-weight:600;margin-bottom:12px;">📐 Alert Trigger Rules</div>
+<table class="channel-table">
+<thead>
+<tr><th>Alert Level</th><th>Trigger Condition</th><th>Response Time</th><th>Notify</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="badge badge-neg">Critical</span></td>
+<td>Negative volume spike &gt;100% daily OR media article on product failure</td>
+<td><strong>2 hours</strong></td>
+<td>Brand Manager + PR + Market VP</td>
+</tr>
+<tr>
+<td><span class="badge badge-neu">Watch</span></td>
+<td>1-star reviews &gt;10% OR negative sentiment &gt;25% on any platform</td>
+<td><strong>12 hours</strong></td>
+<td>Brand Manager + Ops team</td>
+</tr>
+<tr>
+<td><span class="badge badge-pos">Monitor</span></td>
+<td>Competitor major launch OR topic heat exceeds 50% above baseline</td>
+<td><strong>24 hours</strong></td>
+<td>Market Analyst + Brand team</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- ===== SECTION 8: MONITORING PLAN ===== -->
+<div class="section" id="plan">
+<div class="section-title">
+<div class="icon">📋</div>
+      Monitoring Execution Plan — Kenya
+      <span class="section-num">Section 08</span>
+</div>
+<div class="monitoring-grid">
+<div class="monitoring-card">
+<div class="monitoring-card-header mch-green">🌐 Monitoring Channel List</div>
+<div class="monitoring-body">
+<div class="monitoring-item"><div class="mi-dot mi-dot-green"></div><div><span class="mi-label">E-commerce: </span><span class="mi-value">Jumia Kenya (connected) · Kilimall (pending)</span></div></div>
+<div class="monitoring-item"><div class="mi-dot mi-dot-green"></div><div><span class="mi-label">Retail: </span><span class="mi-value">Phoneplace Kenya (manual + staff reports)</span></div></div>
+<div class="monitoring-item"><div class="mi-dot mi-dot-green"></div><div><span class="mi-label">Social — Video: </span><span class="mi-value">TikTok Kenya, YouTube Kenya (tracking active)</span></div></div>
+<div class="monitoring-item"><div class="mi-dot mi-dot-green"></div><div><span class="mi-label">Social — Text: </span><span class="mi-value">X/Twitter · Facebook Groups (connected)</span></div></div>
+<div class="monitoring-item"><div class="mi-dot mi-dot-orange"></div><div><span class="mi-label">Tech Media: </span><span class="mi-value">GSMArena · KenyaPrice.com (pending scrape)</span></div></div>
+<div class="monitoring-item"><div class="mi-dot mi-dot-orange"></div><div><span class="mi-label">To Add: </span><span class="mi-value">Kilimall, Phones.co.ke, PriceInKenya.com</span></div></div>
+</div>
+</div>
+<div class="monitoring-card">
+<div class="monitoring-card-header mch-blue">🔍 Core Monitoring Keywords</div>
+<div class="monitoring-body">
+<div class="monitoring-item"><div class="mi-dot mi-dot-blue"></div><div><span class="mi-label">Product: </span><span class="mi-value">Tecno Camon 40, Camon 40 Pro, Infinix Note 50s 5G</span></div></div>
+<div class="monitoring-item"><div class="mi-dot mi-dot-blue"></div><div><span class="mi-label">Hashtags: </span><span class="mi-value">#TecnoCamon40 #InfinixNote50 #PhoneKenyaPrice</span></div></div>
+<div class="monitoring-item"><div class="mi-dot mi-dot-blue"></div><div><span class="mi-label">Competitor: </span><span class="mi-value">vs Samsung A36, vs Redmi Note 15, best phone under 35000</span></div></div>
+<div class="monitoring-item"><div class="mi-dot mi-dot-blue"></div><div><span class="mi-label">Negative: </span><span class="mi-value">no 5G, bloatware, Jumia delay, out of stock, overpriced</span></div></div>
+<div class="monitoring-item"><div class="mi-dot mi-dot-blue"></div><div><span class="mi-label">Local: </span><span class="mi-value">Safaricom 5G, Lipa Mdogo, M-PESA phone, best phone Kenya</span></div></div>
+</div>
+</div>
+<div class="monitoring-card">
+<div class="monitoring-card-header mch-orange">⏱️ Reporting Cadence</div>
+<div class="monitoring-body">
+<div class="monitoring-item"><div class="mi-dot mi-dot-orange"></div><div><span class="mi-label">Real-time alerts: </span><span class="mi-value">7×24 automated monitoring (spike detection)</span></div></div>
+<div class="monitoring-item"><div class="mi-dot mi-dot-orange"></div><div><span class="mi-label">Daily report: </span><span class="mi-value">New launch phase (≤3 months). Updates at 09:00 &amp; 16:00 EAT</span></div></div>
+<div class="monitoring-item"><div class="mi-dot mi-dot-orange"></div><div><span class="mi-label">Weekly report: </span><span class="mi-value">Switch to weekly after month 3 post-launch</span></div></div>
+<div class="monitoring-item"><div class="mi-dot mi-dot-orange"></div><div><span class="mi-label">OTA monitor: </span><span class="mi-value">Models &gt;3 months old: monitor only 7 days post-OTA update</span></div></div>
+<div class="monitoring-item"><div class="mi-dot mi-dot-orange"></div><div><span class="mi-label">Safaricom 5G: </span><span class="mi-value">Track monthly 5G coverage expansion announcements</span></div></div>
+</div>
+</div>
+<div class="monitoring-card">
+<div class="monitoring-card-header mch-purple">📊 Data Source Notes</div>
+<div class="monitoring-body">
+<div class="monitoring-item"><div class="mi-dot mi-dot-purple"></div><div><span class="mi-label">Price data: </span><span class="mi-value">Jumia KE live scrape (updated 31 Mar 2026 10:30 EAT)</span></div></div>
+<div class="monitoring-item"><div class="mi-dot mi-dot-purple"></div><div><span class="mi-label">Rating data: </span><span class="mi-value">Jumia product page live extraction</span></div></div>
+<div class="monitoring-item"><div class="mi-dot mi-dot-purple"></div><div><span class="mi-label">Review content: </span><span class="mi-value">Jumia reviews (412 total across models)</span></div></div>
+<div class="monitoring-item"><div class="mi-dot mi-dot-purple"></div><div><span class="mi-label">Social: </span><span class="mi-value">TikTok + X/Twitter mentions (manual + tool-assisted)</span></div></div>
+<div class="monitoring-item"><div class="mi-dot mi-dot-purple"></div><div><span class="mi-label">Pending: </span><span class="mi-value">Phoneplace Kenya, Kilimall, PriceInKenya user reviews</span></div></div>
+</div>
+</div>
+</div>
+</div>
+<!-- ===== SECTION 9: RECOMMENDATIONS ===== -->
+<div class="section" id="recommendations">
+<div class="section-title">
+<div class="icon">💡</div>
+      Strategic Recommendations &amp; Action Plan
+      <span class="section-num">Section 09</span>
+</div>
+<div class="rec-list">
+<div class="rec-item">
+<div class="rec-num">1</div>
+<div class="rec-content">
+<div class="rec-title">📦 Urgently Resolve Note 50s 5G Jumia Stock Gap</div>
+<div class="rec-desc">The Infinix Note 50s 5G is generating strong positive sentiment (79%) but is losing sales at peak awareness due to Jumia fulfilment delays. Coordinate emergency restock with Jumia Kenya warehouse. In the short term, actively promote Phoneplace Kenya as "available same day" for interested buyers. Every day of stock-out at this momentum stage erodes conversion permanently.</div>
+</div>
+<div class="rec-priority pri-high">High Priority</div>
+</div>
+<div class="rec-item">
+<div class="rec-num">2</div>
+<div class="rec-content">
+<div class="rec-title">📶 Activate Safaricom 5G Partnership Positioning — Note 50s 5G</div>
+<div class="rec-desc">Safaricom's expanding Nairobi 5G coverage (Westlands, CBD, Karen, Kileleshwa, Kilimani) is a live marketing opportunity. Commission a TikTok speed-test challenge with @nairobitechtalk — "First affordable 5G phone in Kenya that actually works on Safaricom 5G." This positions Infinix Note 50s 5G as the de-facto Safaricom 5G launch companion device for value-conscious buyers.</div>
+</div>
+<div class="rec-priority pri-high">High Priority</div>
+</div>
+<div class="rec-item">
+<div class="rec-num">3</div>
+<div class="rec-content">
+<div class="rec-title">💳 Integrate M-PESA BNPL Prominently on Jumia &amp; Phoneplace</div>
+<div class="rec-desc">Facebook group intelligence shows strong purchase intent among buyers seeking KCB M-Pesa loan or Safaricom Lipa Mdogo Mdogo options for the KES 30K+ models. Ensure Jumia product pages prominently surface BNPL options. Brief Phoneplace Kenya sales staff on M-PESA instalment talking points. This unlocks a segment currently blocked by upfront price sensitivity, not product preference.</div>
+</div>
+<div class="rec-priority pri-high">High Priority</div>
+</div>
+<div class="rec-item">
+<div class="rec-num">4</div>
+<div class="rec-content">
+<div class="rec-title">📸 Amplify Camon 40 Camera UGC — TikTok Night Photography Challenge</div>
+<div class="rec-desc">The Camon 40's 50MP OIS camera is organically beating iPhones in Nairobi creator comparisons. Build on this momentum by launching a branded TikTok challenge ("Usiku na Camon" — "Night with Camon") encouraging users to share low-light shots. Low cost, high organic reach potential. This directly counters the 5G-absence narrative by anchoring Camon 40's identity on camera performance — its true differentiator.</div>
+</div>
+<div class="rec-priority pri-med">Medium Priority</div>
+</div>
+<div class="rec-item">
+<div class="rec-num">5</div>
+<div class="rec-content">
+<div class="rec-title">🔧 Address HiOS Bloatware Perception — Proactive Content</div>
+<div class="rec-desc">HiOS bloatware complaints are recurrent across GSMArena and Jumia Q&amp;A. Produce a "Clean up your Camon 40 in 5 minutes" short video via Guru wa Tech or Techish KE. Publish a Jumia Q&amp;A pinned response. This converts a recurring negative into a brand touchpoint showing customer care — and differentiates from competitors who ignore similar complaints.</div>
+</div>
+<div class="rec-priority pri-med">Medium Priority</div>
+</div>
+<div class="rec-item">
+<div class="rec-num">6</div>
+<div class="rec-content">
+<div class="rec-title">📊 Expand Kenya Data Monitoring Channels</div>
+<div class="rec-desc">Current data primarily sourced from Jumia KE. Critical gaps: Kilimall, Phoneplace Kenya (structured review collection), PriceInKenya.com, and Phones.co.ke. Kenya-specific sentiment is meaningful only with local-channel coverage. Prioritise connecting Kilimall and PriceInKenya scraping. Also consider deploying simple WhatsApp Business feedback flows for Phoneplace Kenya buyers to capture qualitative feedback from walk-in customers.</div>
+</div>
+<div class="rec-priority pri-low">Routine</div>
+</div>
+</div>
+</div>
+</div><!-- /main-content -->
+<!-- ===== FOOTER ===== -->
+<div class="report-footer">
+<div>
+<div class="footer-brand">Transsion Holdings · Kenya Market Brand Team</div>
+<div style="margin-top:4px;">传音控股 · 肯尼亚市场品牌团队</div>
+</div>
+<div style="text-align:center;">
+<div>Data sources: Jumia Kenya live scrape · Phoneplace Kenya · GSMArena · X/Twitter · TikTok · Facebook Groups</div>
+<div style="margin-top:4px;">Collection period: 2026-03-01 — 2026-03-31 | Next update: Today 16:00 EAT</div>
+</div>
+<div style="text-align:right;">
+<div>Report version: v1.0</div>
+<div style="margin-top:4px;">Monitored models: Tecno Camon 40 · Camon 40 Pro · Infinix Note 50s 5G</div>
+</div>
+</div>
+</body>
+</html>

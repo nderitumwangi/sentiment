@@ -26,7 +26,7 @@ st.set_page_config(
 # Option A — GitHub raw file (simplest, public repo)
 REPORT_URL = st.secrets.get(
     "REPORT_URL",
-    "https://raw.githubusercontent.com/nderitumwangi/sentiment/main/reports/transsion_report_latest.html"
+    "https://raw.githubusercontent.com/nderitumwangi/sentiment/master/reports/transsion_report_latest.html"
 )
 
 # Option B — GitHub Releases asset URL (better for large files / private)

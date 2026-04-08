@@ -681,7 +681,37 @@
       .main-content, .report-header, .nav-tabs, .report-footer { padding-left: 20px; padding-right: 20px; }
     }
   </style>
-</head>
+<style>
+/* ===== Keyword Cloud Dynamic Styles ===== */
+.keyword-tag {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 4px;
+    border-radius: 20px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+/* Colors */
+.kw-hot { background: #ffe5e5; color: #d90429; }
+.kw-pos { background: #e6f7ec; color: #1b7f4c; }
+.kw-info { background: #e6f0ff; color: #1d4ed8; }
+.kw-warn { background: #fff4e5; color: #b45309; }
+.kw-muted { background: #f3f4f6; color: #6b7280; }
+
+/* Sizes */
+.kw-xl { font-size: 18px; font-weight: 700; }
+.kw-lg { font-size: 16px; }
+.kw-md { font-size: 14px; }
+.kw-sm { font-size: 12px; }
+.kw-xs { font-size: 11px; }
+
+/* Hover */
+.keyword-tag:hover {
+    transform: scale(1.08);
+    cursor: pointer;
+}
+</style></head>
 <body>
 <!-- ===== HEADER ===== -->
 <div class="report-header">
@@ -695,7 +725,7 @@
 <div class="report-meta">
 <div>Report Date: 8 April 2026</div>
 <div>Data Source: Jumia KE · Phoneplace Kenya · GSMArena</div>
-<div>Data Refresh: 2026-04-08 12:47 EAT</div>
+<div>Data Refresh: 2026-04-08 12:50 EAT</div>
 </div>
 </div>
 <div class="report-title">Transsion Kenya Market<br/>Sentiment Monitoring Report</div>
@@ -1059,7 +1089,7 @@
 <div class="card">
 <div class="card-header">
 <div class="card-title">💬 Keyword Cloud — This Week</div>
-<span class="card-tag tag-live">Updated from refined keywords</span>
+<span class="card-tag tag-live">Real-time</span>
 </div>
 <div class="keyword-cloud"><span class="keyword-tag kw-hot kw-xl">snapdragon</span>
 <span class="keyword-tag kw-hot kw-xl">gaming</span>
@@ -1621,7 +1651,7 @@
 <div class="monitoring-card">
 <div class="monitoring-card-header mch-purple">📊 Data Source Notes</div>
 <div class="monitoring-body">
-<div class="monitoring-item"><div class="mi-dot mi-dot-purple"></div><div><span class="mi-label">Price data: </span><span class="mi-value">Jumia KE live scrape (updated 2026-04-08 12:47 EAT)</span></div></div>
+<div class="monitoring-item"><div class="mi-dot mi-dot-purple"></div><div><span class="mi-label">Price data: </span><span class="mi-value">Jumia KE live scrape (updated 2026-04-08 12:50 EAT)</span></div></div>
 <div class="monitoring-item"><div class="mi-dot mi-dot-purple"></div><div><span class="mi-label">Rating data: </span><span class="mi-value">Jumia product page live extraction</span></div></div>
 <div class="monitoring-item"><div class="mi-dot mi-dot-purple"></div><div><span class="mi-label">Review content: </span><span class="mi-value">Jumia reviews (412 total across models)</span></div></div>
 <div class="monitoring-item"><div class="mi-dot mi-dot-purple"></div><div><span class="mi-label">Social: </span><span class="mi-value">TikTok + X/Twitter mentions (manual + tool-assisted)</span></div></div>
